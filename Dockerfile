@@ -13,6 +13,7 @@ RUN set -eux; \
 		bash \
 		musl-dev \
 		openssl \
+        gcc \
 		go \
 	; \
 	export \
@@ -49,8 +50,9 @@ RUN set -eux; \
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
-RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
-RUN go get github.com/dictyBase/static-server 
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH" \
+    && apk add --no-cache git \
+    && go get github.com/dictyBase/static-server 
 
 # Now the node js application
 RUN mkdir  -p /usr/src/app
@@ -60,5 +62,6 @@ RUN npm i && npm cache clean
 COPY . /usr/src/app
 RUN npm run build 
 ENV TZ America/Chicago
+ENV STATIC_FOLDER /usr/src/app/build 
 EXPOSE 9595
 
