@@ -11,7 +11,7 @@
     "react-notification-system": "^0.2.15",
     "react-scripts": "1.0.12",
     "rebass": "^1.0.4",
-    "react-photo-gallery": "^5.6.1",
+    "react-photo-gallery": "5.6.1",
     "styled-components": "^2.1.2"
   },
   "lint-staged": {
