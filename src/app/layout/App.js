@@ -8,6 +8,8 @@ import NotificationSystem from "react-notification-system"
 import RejectedFilesDisplay from "common/components/RejectedFilesDisplay"
 import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
 import { uploadAllImages, imageResponse } from "common/utils/upload"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
 
 class App extends Component {
   state = { images: [], loading: false }
