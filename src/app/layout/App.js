@@ -10,7 +10,7 @@ import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
 import { uploadAllImages, imageResponse } from "common/utils/upload"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import * as Actions from "../actions/dropImages"
+import dropImages from "../actions/dropImages"
 
 class App extends Component {
   //  state = { images: [], loading: false }
@@ -34,6 +34,8 @@ class App extends Component {
       }
       return { images: accepted }
     })
+    console.log(accepted)
+    return accepted;
   }
 
   handleNetworkError = error => {
@@ -85,7 +87,6 @@ class App extends Component {
   }*/
 
   render() {
-    console.log(this.props)
     //const { images, loading } = this.state
     return (
       <Container maxWidth="90%">
@@ -112,9 +113,7 @@ class App extends Component {
             </Flex>
             <Flex>
               <Box w={1 / 2} p={1}>
-                <ImageDropzone
-                  onDrop={this.props.actions.onDrop}
-                  accept="image/*">
+                <ImageDropzone onDrop={this.props.dropImages} accept="image/*">
                   <Text p={1} f={2}>
                     Drop images here or click to select images to upload
                   </Text>
@@ -154,10 +153,11 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+/*function mapDispatchToProps(dispatch) {
+  
   return {
-    actions: bindActionCreators(Actions, dispatch),
+    actions: bindActionCreators(dropImages, dispatch),
   }
-}
+}*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, { dropImages })(App)

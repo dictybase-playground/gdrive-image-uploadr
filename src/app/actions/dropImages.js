@@ -1,5 +1,4 @@
-const onDrop = (accepted, rejected) => {
-  console.log("ondrop called")
+const dropImages = (accepted, rejected) => {
   if (rejected.length > 0) {
     return console.log("error")
   }
@@ -9,4 +8,4 @@ const onDrop = (accepted, rejected) => {
   }
 }
 
-export default onDrop
+export default dropImages
