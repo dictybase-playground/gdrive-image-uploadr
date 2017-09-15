@@ -10,11 +10,12 @@ import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
 import { uploadAllImages, imageResponse } from "common/utils/upload"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import * as Actions from "../actions/dropImages"
 
 class App extends Component {
-  state = { images: [], loading: false }
+  //  state = { images: [], loading: false }
 
-  onDrop = (accepted, rejected) => {
+  /*onDrop = (accepted, rejected) => {
     if (rejected.length > 0) {
       this.notification.addNotification({
         level: "error",
@@ -81,10 +82,10 @@ class App extends Component {
 
   onReset = () => {
     this.setState({ images: [] })
-  }
+  }*/
 
   render() {
-    const { images, loading } = this.state
+    //const { images, loading } = this.state
     return (
       <Container maxWidth="90%">
         <NotificationSystem
@@ -110,28 +111,33 @@ class App extends Component {
             </Flex>
             <Flex>
               <Box w={1 / 2} p={1}>
-                <ImageDropzone onDrop={this.onDrop} accept="image/*">
+                <ImageDropzone
+                  onDrop={this.props.actions.onDrop}
+                  accept="image/*">
                   <Text p={1} f={2}>
                     Drop images here or click to select images to upload
                   </Text>
                 </ImageDropzone>
               </Box>
               <Box w={1 / 2} p={1}>
-                <ImageInformation images={images} />
+                <ImageInformation images={this.props.images} />
               </Box>
             </Flex>
           </Box>
           <Box is="section" w="60%" p={1}>
             <Box w={1}>
               <UploadButtonDisplay
-                images={images}
-                loading={loading}
-                onUpload={this.onUpload}
-                onReset={this.onReset}
+                images={this.props.images}
+                loading={this.props.loading}
+                /*onUpload={this.onUpload}
+                onReset={this.onReset}*/
               />
             </Box>
             <Box w={1}>
-              <ImagePreview images={images} loading={loading} />
+              <ImagePreview
+                images={this.props.images}
+                loading={this.props.loading}
+              />
             </Box>
           </Box>
         </Flex>
@@ -140,4 +146,17 @@ class App extends Component {
   }
 }
 
-export default App
+function mapStateToProps(state) {
+  return {
+    images: state.images,
+    loading: state.loading,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Actions, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
