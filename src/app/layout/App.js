@@ -85,6 +85,7 @@ class App extends Component {
   }*/
 
   render() {
+    console.log(this.props)
     //const { images, loading } = this.state
     return (
       <Container maxWidth="90%">

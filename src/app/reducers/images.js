@@ -1,6 +1,6 @@
 const initialState = { images: [], loading: false }
 
-const uploadImages = (state = initialState, action) => {
+export const uploadImages = (state = initialState, action) => {
   switch (action.type) {
     case "DROP_IMAGES":
       return {
@@ -11,5 +11,3 @@ const uploadImages = (state = initialState, action) => {
       return state
   }
 }
-
-export default uploadImages
