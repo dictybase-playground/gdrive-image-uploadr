@@ -24,10 +24,13 @@ const displayInformation = images => {
   return content
 }
 
-const ImageInformation = ({ images }) => (
-  <Text center f={2} pt={10}>
-    {displayInformation(images)}
-  </Text>
-)
+const ImageInformation = ({ images }) => {
+  console.log(images)
+  return (
+    <Text center f={2} pt={10}>
+      {displayInformation(images)}
+    </Text>
+  )
+}
 
 export default ImageInformation
