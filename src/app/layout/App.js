@@ -10,8 +10,8 @@ import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
 import { uploadAllImages, imageResponse } from "common/utils/upload"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import dropImages from "../actions/dropImages"
-import resetImages from "../actions/resetImages"
+import dropImages from "features/imageDropzone/DropImagesActions"
+import resetImages from "features/uploadButtonDisplay/UploadResetActions"
 
 class App extends Component {
   //  state = { images: [], loading: false }
@@ -153,12 +153,5 @@ function mapStateToProps(state) {
     loading: state.images.loading,
   }
 }
-
-/*function mapDispatchToProps(dispatch) {
-  
-  return {
-    actions: bindActionCreators(dropImages, dispatch),
-  }
-}*/
 
 export default connect(mapStateToProps, { dropImages, resetImages })(App)
