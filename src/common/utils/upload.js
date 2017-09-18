@@ -15,7 +15,6 @@ const uploadAllImages = images => {
 }
 
 const imageResponse = responses => {
-  console.log("in image response")
   let resolved = []
   let rejected = []
   responses.forEach(r => {
@@ -27,9 +26,7 @@ const imageResponse = responses => {
   })
   if (rejected.length > 0) {
     console.log("img res rejected" + rejected)
-    return Promise.reject(rejected)
   }
-  console.log("img res resolved" + resolved)
   return Promise.resolve(resolved)
 }
 

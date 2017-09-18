@@ -149,6 +149,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state.images.notification)
   return {
     images: state.images.data,
     loading: state.images.loading,
