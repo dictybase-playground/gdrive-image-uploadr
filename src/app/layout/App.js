@@ -11,6 +11,7 @@ import { uploadAllImages, imageResponse } from "common/utils/upload"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import dropImages from "../actions/dropImages"
+import resetImages from "../actions/resetImages"
 
 class App extends Component {
   //  state = { images: [], loading: false }
@@ -129,8 +130,8 @@ class App extends Component {
               <UploadButtonDisplay
                 images={this.props.images}
                 loading={this.props.loading}
-                /*onUpload={this.onUpload}
-                onReset={this.onReset}*/
+                /*onUpload={this.onUpload}*/
+                onReset={this.props.resetImages}
               />
             </Box>
             <Box w={1}>
@@ -160,4 +161,4 @@ function mapStateToProps(state) {
   }
 }*/
 
-export default connect(mapStateToProps, { dropImages })(App)
+export default connect(mapStateToProps, { dropImages, resetImages })(App)
