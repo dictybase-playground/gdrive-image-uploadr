@@ -25,7 +25,6 @@ const displayInformation = images => {
 }
 
 const ImageInformation = ({ images }) => {
-  console.log(images)
   return (
     <Text center f={2} pt={10}>
       {displayInformation(images)}

@@ -148,8 +148,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    images: state.images,
-    loading: state.loading,
+    images: state.images.data,
+    loading: state.images.loading,
   }
 }
 
