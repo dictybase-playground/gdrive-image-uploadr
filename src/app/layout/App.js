@@ -7,11 +7,12 @@ import ImagePreview from "features/imagePreview/ImagePreview"
 import NotificationSystem from "react-notification-system"
 import RejectedFilesDisplay from "common/components/RejectedFilesDisplay"
 import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
-import { uploadAllImages, imageResponse } from "common/utils/upload"
-import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import dropImages from "features/imageDropzone/DropImagesActions"
-import resetImages from "features/uploadButtonDisplay/UploadResetActions"
+import {
+  resetImages,
+  onUpload,
+} from "features/uploadButtonDisplay/UploadResetActions"
 
 class App extends Component {
   //  state = { images: [], loading: false }
@@ -130,7 +131,7 @@ class App extends Component {
               <UploadButtonDisplay
                 images={this.props.images}
                 loading={this.props.loading}
-                /*onUpload={this.onUpload}*/
+                onUpload={this.props.onUpload}
                 onReset={this.props.resetImages}
               />
             </Box>
@@ -154,4 +155,6 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { dropImages, resetImages })(App)
+export default connect(mapStateToProps, { dropImages, resetImages, onUpload })(
+  App,
+)
