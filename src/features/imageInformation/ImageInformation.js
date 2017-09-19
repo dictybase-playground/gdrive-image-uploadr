@@ -1,5 +1,6 @@
 import React from "react"
 import { Text } from "rebass"
+import { connect } from "react-redux"
 
 const listSizes = images => images.map(img => img.size)
 
@@ -24,12 +25,18 @@ const displayInformation = images => {
   return content
 }
 
-const ImageInformation = ({ images }) => {
+const ImageInformation = props => {
   return (
     <Text center f={2} pt={10}>
-      {displayInformation(images)}
+      {displayInformation(props.images)}
     </Text>
   )
 }
 
-export default ImageInformation
+function mapStateToProps(state) {
+  return {
+    images: state.images.data,
+  }
+}
+
+export default connect(mapStateToProps)(ImageInformation)

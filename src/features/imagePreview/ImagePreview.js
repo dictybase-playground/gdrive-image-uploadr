@@ -3,6 +3,7 @@ import Gallery from "react-photo-gallery"
 import { Text } from "rebass"
 import LoadingMask from "common/components/LoadingMask"
 import LoadingSpinner from "common/components/LoadingSpinner"
+import { connect } from "react-redux"
 
 const getImageObject = image => {
   return {
@@ -12,17 +13,17 @@ const getImageObject = image => {
   }
 }
 
-const ImagePreview = ({ images, loading }) => {
+const ImagePreview = props => {
   let content
-  if (images.length > 0) {
+  if (props.images.length > 0) {
     content = (
-      <LoadingMask blocking={loading} w={1}>
+      <LoadingMask blocking={props.loading} w={1}>
         <Gallery
-          photos={images.map(img => getImageObject(img))}
+          photos={props.images.map(img => getImageObject(img))}
           cols={5}
           margin={4}
         />
-        {loading && <LoadingSpinner />}
+        {props.loading && <LoadingSpinner />}
       </LoadingMask>
     )
   } else {
@@ -35,4 +36,11 @@ const ImagePreview = ({ images, loading }) => {
   return content
 }
 
-export default ImagePreview
+function mapStateToProps(state) {
+  return {
+    images: state.images.data,
+    loading: state.images.loading,
+  }
+}
+
+export default connect(mapStateToProps)(ImagePreview)

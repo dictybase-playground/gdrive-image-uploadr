@@ -8,10 +8,8 @@ export const uploadImages = (state = initialState, action) => {
     case "RESET_IMAGES":
       return { ...state, data: [] }
     case "SET_LOADING":
-      console.log("in set Loading")
       return { ...state, loading: action.loading }
     case "UPLOAD_IMAGES":
-      console.log("in upload image reducer")
       return {
         ...state,
         data: [],

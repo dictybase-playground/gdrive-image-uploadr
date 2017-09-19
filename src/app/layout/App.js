@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Flex, Box, Heading, Subhead, Text, Container } from "rebass"
+import { Flex, Box, Heading, Subhead, Container } from "rebass"
 import UploadButtonDisplay from "features/uploadButtonDisplay/UploadButtonDisplay"
 import ImageDropzone from "features/imageDropzone/ImageDropzone"
 import ImageInformation from "features/imageInformation/ImageInformation"
@@ -7,12 +7,6 @@ import ImagePreview from "features/imagePreview/ImagePreview"
 import NotificationSystem from "react-notification-system"
 import RejectedFilesDisplay from "common/components/RejectedFilesDisplay"
 import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
-import { connect } from "react-redux"
-import dropImages from "features/imageDropzone/DropImagesActions"
-import {
-  resetImages,
-  onUpload,
-} from "features/uploadButtonDisplay/UploadResetActions"
 
 class App extends Component {
   //  state = { images: [], loading: false }
@@ -115,31 +109,19 @@ class App extends Component {
             </Flex>
             <Flex>
               <Box w={1 / 2} p={1}>
-                <ImageDropzone onDrop={this.props.dropImages} accept="image/*">
-                  <Text p={1} f={2}>
-                    Drop images here or click to select images to upload
-                  </Text>
-                </ImageDropzone>
+                <ImageDropzone />
               </Box>
               <Box w={1 / 2} p={1}>
-                <ImageInformation images={this.props.images} />
+                <ImageInformation />
               </Box>
             </Flex>
           </Box>
           <Box is="section" w="60%" p={1}>
             <Box w={1}>
-              <UploadButtonDisplay
-                images={this.props.images}
-                loading={this.props.loading}
-                onUpload={this.props.onUpload}
-                onReset={this.props.resetImages}
-              />
+              <UploadButtonDisplay />
             </Box>
             <Box w={1}>
-              <ImagePreview
-                images={this.props.images}
-                loading={this.props.loading}
-              />
+              <ImagePreview />
             </Box>
           </Box>
         </Flex>
@@ -148,14 +130,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  console.log(state.images.notification)
-  return {
-    images: state.images.data,
-    loading: state.images.loading,
-  }
-}
-
-export default connect(mapStateToProps, { dropImages, resetImages, onUpload })(
-  App,
-)
+export default App

@@ -21,7 +21,6 @@ export const uploadImages = () => {
 }
 
 export const onUpload = () => (dispatch, getState) => {
-  console.log("in upload")
   dispatch(setLoading(true))
   let curState = getState().images.data
   uploadAllImages(curState)
@@ -31,7 +30,6 @@ export const onUpload = () => (dispatch, getState) => {
 }
 
 const handleNetworkError = error => dispatch => {
-  console.log("in handleNetworkError")
   dispatch(setLoading(false))
   /*this.notification.addNotification({
     title: "Network error",
@@ -43,7 +41,6 @@ const handleNetworkError = error => dispatch => {
 }
 
 const handleHttpError = errResponses => dispatch => {
-  console.log("in handleHttpError")
   dispatch(setLoading(false))
   Promise.all(errResponses.map(err => err.json())).then(errors => {
     /*this.notification.addNotification({
@@ -58,7 +55,6 @@ const handleHttpError = errResponses => dispatch => {
 }
 
 const handleUpload = responses => dispatch => {
-  console.log("in handleupload" + responses)
   dispatch(uploadImages())
   /*this.notification.addNotification({
     title: "Successful upload",
