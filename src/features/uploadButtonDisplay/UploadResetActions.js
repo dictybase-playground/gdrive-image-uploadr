@@ -1,5 +1,7 @@
 import { uploadAllImages, imageResponse } from "common/utils/upload"
-import NotificationSystem from "react-notification-system"
+import { addNotification } from "features/notificationPopup/NotificationActions"
+import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
+import React, { Component } from "react"
 
 export const resetImages = () => {
   return {
@@ -30,37 +32,46 @@ export const onUpload = () => (dispatch, getState) => {
 }
 
 const handleNetworkError = error => dispatch => {
+  console.log("in handle nw")
   dispatch(setLoading(false))
-  /*this.notification.addNotification({
-    title: "Network error",
-    message: error.message,
-    level: "error",
-    position: "tc",
-    autoDismiss: 0,
-  })*/
+  dispatch(
+    addNotification({
+      title: "Network error",
+      message: error.message,
+      level: "error",
+      position: "tc",
+      autoDismiss: 0,
+    }),
+  )
 }
 
 const handleHttpError = errResponses => dispatch => {
+  console.log("in handle http")
   dispatch(setLoading(false))
   Promise.all(errResponses.map(err => err.json())).then(errors => {
-    /*this.notification.addNotification({
-      level: "error",
-      title: "Upload error",
-      message: "Error in uploading images",
-      position: "tc",
-      // children: <UploadErrorsDisplay errors={errors} />,
-      autoDismiss: 0,
-    })*/
+    dispatch(
+      addNotification({
+        level: "error",
+        title: "Upload error",
+        message: "Error in uploading images",
+        position: "tc",
+        children: <UploadErrorsDisplay errors={errors} />,
+        autoDismiss: 0,
+      }),
+    )
   })
 }
 
 const handleUpload = responses => dispatch => {
+  console.log("in handle upload")
   dispatch(uploadImages())
-  /*this.notification.addNotification({
-    title: "Successful upload",
-    message: `Uploaded total ${responses.length} images`,
-    level: "success",
-    position: "tc",
-    autoDismiss: 10,
-  })*/
+  dispatch(
+    addNotification({
+      title: "Successful upload",
+      message: `Uploaded total ${responses.length} images`,
+      level: "success",
+      position: "tc",
+      autoDismiss: 10,
+    }),
+  )
 }

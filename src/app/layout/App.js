@@ -4,9 +4,7 @@ import UploadButtonDisplay from "features/uploadButtonDisplay/UploadButtonDispla
 import ImageDropzone from "features/imageDropzone/ImageDropzone"
 import ImageInformation from "features/imageInformation/ImageInformation"
 import ImagePreview from "features/imagePreview/ImagePreview"
-import NotificationSystem from "react-notification-system"
-import RejectedFilesDisplay from "common/components/RejectedFilesDisplay"
-import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
+import NotificationPopup from "features/notificationPopup/NotificationPopup"
 
 class App extends Component {
   //  state = { images: [], loading: false }
@@ -86,11 +84,7 @@ class App extends Component {
     //const { images, loading } = this.state
     return (
       <Container maxWidth="90%">
-        <NotificationSystem
-          ref={n => {
-            this.notification = n
-          }}
-        />
+        <NotificationPopup />
         <Flex>
           <Box w={1} p={1}>
             <Heading bg="#4a9eda" p={1}>
