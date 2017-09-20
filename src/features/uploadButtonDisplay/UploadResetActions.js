@@ -32,7 +32,6 @@ export const onUpload = () => (dispatch, getState) => {
 }
 
 const handleNetworkError = error => dispatch => {
-  console.log("in handle nw")
   dispatch(setLoading(false))
   dispatch(
     addNotification({
@@ -46,9 +45,10 @@ const handleNetworkError = error => dispatch => {
 }
 
 const handleHttpError = errResponses => dispatch => {
-  console.log("in handle http")
   dispatch(setLoading(false))
-  Promise.all(errResponses.map(err => err.json())).then(errors => {
+  let errorResponses = []
+  errorResponses.concat(errResponses)
+  Promise.all(errorResponses.map(err => err.json())).then(errors => {
     dispatch(
       addNotification({
         level: "error",
@@ -63,7 +63,6 @@ const handleHttpError = errResponses => dispatch => {
 }
 
 const handleUpload = responses => dispatch => {
-  console.log("in handle upload")
   dispatch(uploadImages())
   dispatch(
     addNotification({
