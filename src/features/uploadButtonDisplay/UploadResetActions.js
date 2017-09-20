@@ -1,7 +1,7 @@
 import { uploadAllImages, imageResponse } from "common/utils/upload"
 import { addNotification } from "features/notificationPopup/NotificationActions"
 import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
-import React, { Component } from "react"
+import React from "react"
 
 export const resetImages = () => {
   return {
