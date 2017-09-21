@@ -4,3 +4,11 @@ export const addNotification = notification => {
     notification,
   }
 }
+
+export const rejectImagesNotification = (notificationType, rejected) => {
+  return {
+    type: "REJECT_IMG_NOTIFICATION",
+    notificationType,
+    rejected,
+  }
+}
