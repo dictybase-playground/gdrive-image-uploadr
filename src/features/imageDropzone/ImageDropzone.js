@@ -1,7 +1,6 @@
 import React from "react"
 import { Text } from "rebass"
 import ImageDropzoneStyle from "features/imageDropzone/ImageDropzoneStyle"
-//import RejectedFilesDisplay from "common/components/RejectedFilesDisplay"
 import { acceptImages } from "features/imageDropzone/DropImagesActions"
 import { rejectImagesNotification } from "features/notificationPopup/NotificationActions"
 import { connect } from "react-redux"
@@ -13,14 +12,6 @@ const ImageDropzone = props => {
     if (rejected.length > 0) {
       const type = "ERROR_REJECTED_IMAGES"
       props.rejectImagesNotification(type, rejected)
-      /*props.addNotification({
-        level: "error",
-        title: "Error",
-        message: "Rejected files",
-        //position: "tc",
-        children: <RejectedFilesDisplay rejected={rejected} />,
-        autoDismiss: 0,
-      })*/
     }
   }
 

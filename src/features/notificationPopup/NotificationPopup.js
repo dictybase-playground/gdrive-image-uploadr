@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import NotificationSystem from "react-notification-system"
 import { connect } from "react-redux"
-import { addNotification } from "features/notificationPopup/NotificationActions"
 import RejectedFilesDisplay from "common/components/RejectedFilesDisplay"
+import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
 
 class NotificationPopup extends Component {
   componentDidMount = () => {
@@ -10,22 +10,48 @@ class NotificationPopup extends Component {
   }
 
   componentWillReceiveProps = props => {
-    if (props.notification.notificationType === "ERROR_REJECTED_IMAGES") {
+    if (props.notification.notificationType === "SUCCESS") {
+      this.notificationSystem.addNotification({
+        title: "Successful upload",
+        message: `Uploaded total ${props.notification.notificationData} images`,
+        level: "success",
+        position: "tc",
+        autoDismiss: 10,
+      })
+    } else if (
+      props.notification.notificationType === "ERROR_REJECTED_IMAGES"
+    ) {
       this.notificationSystem.addNotification({
         level: "error",
         title: "Error",
         message: "Rejected files",
         position: "tc",
         children: (
-          <RejectedFilesDisplay rejected={props.notification.rejected} />
+          <RejectedFilesDisplay
+            rejected={props.notification.notificationData}
+          />
         ),
         autoDismiss: 0,
       })
-    } else {
-      console.log(props.notificationType)
-      this.notificationSystem.addNotification(
-        props.notification.notificationData,
-      )
+    } else if (props.notification.notificationType === "ERROR_NETWORK") {
+      this.notificationSystem.addNotification({
+        title: "Network error",
+        message: props.notification.notificationData,
+        level: "error",
+        position: "tc",
+        autoDismiss: 0,
+      })
+    } else if (props.notification.notificationType === "ERROR_HTTP") {
+      this.notificationSystem.addNotification({
+        level: "error",
+        title: "Upload error",
+        message: "Error in uploading images",
+        position: "tc",
+        children: (
+          <UploadErrorsDisplay errors={props.notification.notificationData} />
+        ),
+        autoDismiss: 0,
+      })
     }
   }
 
@@ -35,10 +61,9 @@ class NotificationPopup extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.notifications)
   return {
     notification: state.notifications,
   }
 }
 
-export default connect(mapStateToProps, { addNotification })(NotificationPopup)
+export default connect(mapStateToProps)(NotificationPopup)
