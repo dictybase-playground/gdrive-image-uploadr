@@ -1,4 +1,20 @@
-export const notification = (state = {}, action) => {
+//@flow
+import type { noteAction } from "features/notificationPopup/NotificationActions"
+
+type noteState = {
+  notificationType: string,
+  notificationData: string | number | Array<string>,
+}
+
+const initialState = {
+  notificationType: "",
+  notificationData: "",
+}
+
+export const notification = (
+  state: noteState = initialState,
+  action: noteAction,
+): noteState => {
   switch (action.type) {
     case "SUCCESS_NOTIFICATION":
       return {

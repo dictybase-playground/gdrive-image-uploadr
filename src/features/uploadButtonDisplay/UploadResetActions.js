@@ -1,3 +1,5 @@
+//@flow
+
 import { uploadAllImages, imageResponse } from "common/utils/upload"
 import {
   nwErrorNotification,
@@ -5,20 +7,26 @@ import {
   successNotification,
 } from "features/notificationPopup/NotificationActions"
 
-export const resetImages = () => {
+export type imgAction =
+  | { type: "DROP_IMAGES", payload: Array<Object> }
+  | { type: "RESET_IMAGES" }
+  | { type: "SET_LOADING", loading: boolean }
+  | { type: "UPLOAD_IMAGES" }
+
+export const resetImages = (): imgAction => {
   return {
     type: "RESET_IMAGES",
   }
 }
 
-const setLoading = loading => {
+const setLoading = (loading: boolean): imgAction => {
   return {
     type: "SET_LOADING",
     loading,
   }
 }
 
-export const uploadImages = () => {
+export const uploadImages = (): imgAction => {
   return {
     type: "UPLOAD_IMAGES",
   }

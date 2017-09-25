@@ -1,6 +1,17 @@
+//@flow
+import type { imgAction } from "features/uploadButtonDisplay/UploadResetActions"
+
+type imgState = {
+  data: Array<Object>,
+  loading: boolean,
+}
+
 const initialState = { data: [], loading: false }
 
-export const uploadImages = (state = initialState, action) => {
+export const uploadImages = (
+  state: imgState = initialState,
+  action: imgAction,
+): imgState => {
   switch (action.type) {
     case "DROP_IMAGES":
       let newData = state.data.concat(action.payload)
