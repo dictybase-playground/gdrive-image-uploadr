@@ -1,7 +1,7 @@
 //@flow
 import type { imgAction } from "features/uploadButtonDisplay/UploadResetActions"
 
-type imgState = {
+export type imgState = {
   data: Array<Object>,
   loading: boolean,
 }

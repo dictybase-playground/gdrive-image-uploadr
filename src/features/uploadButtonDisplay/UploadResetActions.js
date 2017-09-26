@@ -1,5 +1,6 @@
 //@flow
-
+import type { imgState } from "app/reducers/imagesReducer"
+import type { noteAction } from "features/notificationPopup/NotificationActions"
 import { uploadAllImages, imageResponse } from "common/utils/upload"
 import {
   nwErrorNotification,
@@ -12,6 +13,16 @@ export type imgAction =
   | { type: "RESET_IMAGES" }
   | { type: "SET_LOADING", loading: boolean }
   | { type: "UPLOAD_IMAGES" }
+
+type returnState = { images: imgState }
+
+type helperFunction = (Object | Array<string>) => mixed
+
+type Action = imgAction | noteAction
+
+type Dispatch = (
+  action: Action | Promise<imgAction> | helperFunction,
+) => Promise<*>
 
 export const resetImages = (): imgAction => {
   return {
@@ -32,7 +43,10 @@ export const uploadImages = (): imgAction => {
   }
 }
 
-export const onUpload = () => (dispatch, getState) => {
+export const onUpload = () => (
+  dispatch: Dispatch,
+  getState: () => returnState,
+) => {
   dispatch(setLoading(true))
   let curState = getState().images.data
   uploadAllImages(curState)
@@ -41,13 +55,13 @@ export const onUpload = () => (dispatch, getState) => {
     .catch(errorHttp => dispatch(handleHttpError(errorHttp)))
 }
 
-const handleNetworkError = error => dispatch => {
+const handleNetworkError = (error: Object) => (dispatch: Dispatch) => {
   const type = "ERROR_NETWORK"
   dispatch(setLoading(false))
   dispatch(nwErrorNotification(type, error.message))
 }
 
-const handleHttpError = errResponses => dispatch => {
+const handleHttpError = (errResponses: Object) => (dispatch: Dispatch) => {
   dispatch(setLoading(false))
   let errorResponses = []
   errorResponses.concat(errResponses)
@@ -57,7 +71,7 @@ const handleHttpError = errResponses => dispatch => {
   })
 }
 
-const handleUpload = responses => dispatch => {
+const handleUpload = (responses: Array<string>) => (dispatch: Dispatch) => {
   dispatch(uploadImages())
   const type = "SUCCESS"
   dispatch(successNotification(type, responses.length))

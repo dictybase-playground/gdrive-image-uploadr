@@ -8,7 +8,6 @@ import NotificationPopup from "features/notificationPopup/NotificationPopup"
 
 class App extends Component {
   render() {
-    //const { images, loading } = this.state
     return (
       <Container maxWidth="90%">
         <NotificationPopup />
