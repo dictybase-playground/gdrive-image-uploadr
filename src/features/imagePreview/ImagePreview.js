@@ -12,7 +12,7 @@ type Props = {
   loading: boolean,
 }
 
-const getImageObject = image => {
+const getImageObject = (image: Object) => {
   return {
     src: image.preview,
     width: 75,
