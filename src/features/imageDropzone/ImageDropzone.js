@@ -1,3 +1,4 @@
+//@flow
 import React from "react"
 import { Text } from "rebass"
 import ImageDropzoneStyle from "features/imageDropzone/ImageDropzoneStyle"
@@ -5,11 +6,16 @@ import { acceptImages } from "features/imageDropzone/DropImagesActions"
 import { rejectImagesNotification } from "features/notificationPopup/NotificationActions"
 import { connect } from "react-redux"
 
-const ImageDropzone = props => {
-  const dropImages = (accepted, rejected) => {
+type Props = {
+  acceptImages: (accepted: Array<Object>) => void,
+  rejectImagesNotification: (type: string, rejected: ?Array<Object>) => void,
+}
+
+const ImageDropzone = (props: Props) => {
+  const dropImages = (accepted: Array<Object>, rejected: ?Array<Object>) => {
     props.acceptImages(accepted)
 
-    if (rejected.length > 0) {
+    if (rejected !== null && rejected !== undefined && rejected.length > 0) {
       const type = "ERROR_REJECTED_IMAGES"
       props.rejectImagesNotification(type, rejected)
     }

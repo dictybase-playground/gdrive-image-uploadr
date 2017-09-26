@@ -1,7 +1,7 @@
 //@flow
 import type { noteAction } from "features/notificationPopup/NotificationActions"
 
-type noteState = {
+export type noteState = {
   notificationType: string,
   notificationData: string | number | Array<string>,
 }

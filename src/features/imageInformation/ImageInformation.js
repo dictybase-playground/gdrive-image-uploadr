@@ -1,16 +1,23 @@
+//@flow
+
 import React from "react"
 import { Text } from "rebass"
 import { connect } from "react-redux"
 
-const listSizes = images => images.map(img => img.size)
+type Props = {
+  images: Array<Object>,
+}
 
-const getTotalSize = images => {
+const listSizes = (images: Array<Object>): Array<number> =>
+  images.map(img => img.size)
+
+const getTotalSize = (images: Array<Object>): string => {
   let size =
     listSizes(images).reduce((prev, curr) => prev + curr) / (1024 * 1024)
   return size.toFixed(2)
 }
 
-const displayInformation = images => {
+const displayInformation = (images: Array<Object>) => {
   let content
   if (images.length > 0) {
     content = (
@@ -25,7 +32,7 @@ const displayInformation = images => {
   return content
 }
 
-const ImageInformation = props => {
+const ImageInformation = (props: Props) => {
   return (
     <Text center f={2} pt={10}>
       {displayInformation(props.images)}
@@ -33,7 +40,7 @@ const ImageInformation = props => {
   )
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     images: state.images.data,
   }
