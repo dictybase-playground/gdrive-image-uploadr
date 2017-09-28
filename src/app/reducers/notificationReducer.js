@@ -3,7 +3,7 @@ import type { noteAction } from "features/notificationPopup/NotificationActions"
 
 export type noteState = {
   notificationType: string,
-  notificationData: string | number | Array<string>,
+  notificationData: Array<string> | string | number,
 }
 
 const initialState = {
