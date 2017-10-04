@@ -40,6 +40,7 @@ const ImageInformation = (props: Props) => {
   )
 }
 
+//map required data in state to props of this component
 const mapStateToProps = state => {
   return {
     images: state.images.data,

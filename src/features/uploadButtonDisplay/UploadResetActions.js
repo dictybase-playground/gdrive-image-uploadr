@@ -24,6 +24,8 @@ type Dispatch = (
   action: Action | Promise<imgAction> | helperFunction,
 ) => Promise<*>
 
+//Upload images action creators that will then be imported and dispatched from other components as required
+
 export const resetImages = (): imgAction => {
   return {
     type: "RESET_IMAGES",

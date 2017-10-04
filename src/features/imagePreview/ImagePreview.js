@@ -43,6 +43,7 @@ const ImagePreview = (props: Props) => {
   return content
 }
 
+//map required data from state to props of this component
 function mapStateToProps(state) {
   return {
     images: state.images.data,

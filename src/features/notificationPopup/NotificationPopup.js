@@ -17,6 +17,7 @@ class NotificationPopup extends Component<Props> {
     this.notificationSystem = this.refs.notificationSystem
   }
 
+  //based on notification type, trigger the appropriate notification
   componentWillReceiveProps = props => {
     if (
       this.notificationSystem !== null &&
@@ -74,6 +75,7 @@ class NotificationPopup extends Component<Props> {
   }
 }
 
+//map required data from state to props of this component
 const mapStateToProps = state => {
   return {
     notification: state.notifications,

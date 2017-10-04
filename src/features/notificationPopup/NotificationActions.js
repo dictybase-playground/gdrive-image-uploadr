@@ -22,6 +22,8 @@ export type noteAction =
       errors: Array<string>,
     }
 
+//Notification action creators that will then be imported and dispatched from other components as required
+
 export const rejectImagesNotification = (
   notificationType: string,
   rejected: Array<string>,

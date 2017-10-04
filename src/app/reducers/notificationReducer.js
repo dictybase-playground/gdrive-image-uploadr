@@ -1,6 +1,8 @@
 //@flow
 import type { noteAction } from "features/notificationPopup/NotificationActions"
 
+//reducers specific to different notification actions that would be dispatched
+
 export type noteState = {
   notificationType: string,
   notificationData: Array<string> | string | number,
