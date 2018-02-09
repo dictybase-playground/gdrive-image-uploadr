@@ -1,28 +1,54 @@
+//@flow
+import type { imgState } from "app/reducers/imagesReducer"
+import type { noteAction } from "features/notificationPopup/NotificationActions"
 import { uploadAllImages, imageResponse } from "common/utils/upload"
-import { addNotification } from "features/notificationPopup/NotificationActions"
-import UploadErrorsDisplay from "common/components/UploadErrorsDisplay"
-import React from "react"
+import {
+  nwErrorNotification,
+  httpErrorNotification,
+  successNotification,
+} from "features/notificationPopup/NotificationActions"
 
-export const resetImages = () => {
+export type imgAction =
+  | { type: "DROP_IMAGES", payload: Array<Object> }
+  | { type: "RESET_IMAGES" }
+  | { type: "SET_LOADING", loading: boolean }
+  | { type: "UPLOAD_IMAGES" }
+
+type returnState = { images: imgState }
+
+type helperFunction = (Object | Array<string>) => mixed
+
+type Action = imgAction | noteAction
+
+type Dispatch = (
+  action: Action | Promise<imgAction> | helperFunction,
+) => Promise<*>
+
+//Upload images action creators that will then be imported and dispatched from other components as required
+
+export const resetImages = (): imgAction => {
   return {
     type: "RESET_IMAGES",
   }
 }
 
-const setLoading = loading => {
+const setLoading = (loading: boolean): imgAction => {
   return {
     type: "SET_LOADING",
     loading,
   }
 }
 
-export const uploadImages = () => {
+export const uploadImages = (): imgAction => {
   return {
     type: "UPLOAD_IMAGES",
   }
 }
 
-export const onUpload = () => (dispatch, getState) => {
+export const onUpload = () => (
+  dispatch: Dispatch,
+  getState: () => returnState,
+) => {
   dispatch(setLoading(true))
   let curState = getState().images.data
   uploadAllImages(curState)
@@ -31,46 +57,24 @@ export const onUpload = () => (dispatch, getState) => {
     .catch(errorHttp => dispatch(handleHttpError(errorHttp)))
 }
 
-const handleNetworkError = error => dispatch => {
+const handleNetworkError = (error: Object) => (dispatch: Dispatch) => {
+  const type = "ERROR_NETWORK"
   dispatch(setLoading(false))
-  dispatch(
-    addNotification({
-      title: "Network error",
-      message: error.message,
-      level: "error",
-      position: "tc",
-      autoDismiss: 0,
-    }),
-  )
+  dispatch(nwErrorNotification(type, error.message))
 }
 
-const handleHttpError = errResponses => dispatch => {
+const handleHttpError = (errResponses: Object) => (dispatch: Dispatch) => {
   dispatch(setLoading(false))
   let errorResponses = []
   errorResponses.concat(errResponses)
+  const type = "ERROR_HTTP"
   Promise.all(errorResponses.map(err => err.json())).then(errors => {
-    dispatch(
-      addNotification({
-        level: "error",
-        title: "Upload error",
-        message: "Error in uploading images",
-        position: "tc",
-        children: <UploadErrorsDisplay errors={errors} />,
-        autoDismiss: 0,
-      }),
-    )
+    dispatch(httpErrorNotification(type, errors))
   })
 }
 
-const handleUpload = responses => dispatch => {
+const handleUpload = (responses: Array<string>) => (dispatch: Dispatch) => {
   dispatch(uploadImages())
-  dispatch(
-    addNotification({
-      title: "Successful upload",
-      message: `Uploaded total ${responses.length} images`,
-      level: "success",
-      position: "tc",
-      autoDismiss: 10,
-    }),
-  )
+  const type = "SUCCESS"
+  dispatch(successNotification(type, responses.length))
 }

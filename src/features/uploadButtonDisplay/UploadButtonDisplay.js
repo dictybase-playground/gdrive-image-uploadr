@@ -1,3 +1,5 @@
+//@flow
+
 import React from "react"
 import { Flex, Box, Subhead } from "rebass"
 import DisplayButton from "common/components/DisplayButton"
@@ -8,7 +10,14 @@ import {
   onUpload,
 } from "features/uploadButtonDisplay/UploadResetActions"
 
-const manageDisplay = props => {
+export type Props = {
+  images: Array<Object>,
+  loading: boolean,
+  onUpload: () => mixed,
+  resetImages: () => mixed,
+}
+
+const manageDisplay = (props: Props) => {
   let content
   if (props.loading) {
     content = (
@@ -43,7 +52,7 @@ const manageDisplay = props => {
   return content
 }
 
-const UploadButtonDisplay = props => (
+const UploadButtonDisplay = (props: Props) => (
   <WrapperFlex justify="space-between" p={1}>
     <Box w="70%">
       <Subhead>Image preview</Subhead>
@@ -54,6 +63,7 @@ const UploadButtonDisplay = props => (
   </WrapperFlex>
 )
 
+//map required data from state to props of this component
 function mapStateToProps(state) {
   return {
     images: state.images.data,

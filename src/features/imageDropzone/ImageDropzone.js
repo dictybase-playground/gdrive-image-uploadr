@@ -1,27 +1,30 @@
+//@flow
 import React from "react"
 import { Text } from "rebass"
 import ImageDropzoneStyle from "features/imageDropzone/ImageDropzoneStyle"
-import RejectedFilesDisplay from "common/components/RejectedFilesDisplay"
 import { acceptImages } from "features/imageDropzone/DropImagesActions"
-import { addNotification } from "features/notificationPopup/NotificationActions"
+import { rejectImagesNotification } from "features/notificationPopup/NotificationActions"
 import { connect } from "react-redux"
 
-const ImageDropzone = props => {
-  const dropImages = (accepted, rejected) => {
+type Props = {
+  acceptImages: (accepted: Array<Object>) => void,
+  rejectImagesNotification: (type: string, rejected: ?Array<Object>) => void,
+}
+
+const ImageDropzone = (props: Props) => {
+  //dropImages function gets the list of accepted and rejected filel list from ImageDropZone component
+  const dropImages = (accepted: Array<Object>, rejected: ?Array<Object>) => {
+    //dispatch the acceptImages action
     props.acceptImages(accepted)
 
-    if (rejected.length > 0) {
-      props.addNotification({
-        level: "error",
-        title: "Error",
-        message: "Rejected files",
-        position: "tc",
-        children: <RejectedFilesDisplay rejected={rejected} />,
-        autoDismiss: 0,
-      })
+    //dispatch the rejectImagesNotification action
+    if (rejected !== null && rejected !== undefined && rejected.length > 0) {
+      const type = "ERROR_REJECTED_IMAGES"
+      props.rejectImagesNotification(type, rejected)
     }
   }
 
+  //ImageDropZone component that triggers the dropImages function when images are dropped
   return (
     <ImageDropzoneStyle onDrop={dropImages} accept="image/*">
       <Text p={1} f={2}>
@@ -31,4 +34,7 @@ const ImageDropzone = props => {
   )
 }
 
-export default connect(null, { acceptImages, addNotification })(ImageDropzone)
+//connect the required actions to the component as props so it can be dispatched as required
+export default connect(null, { acceptImages, rejectImagesNotification })(
+  ImageDropzone,
+)

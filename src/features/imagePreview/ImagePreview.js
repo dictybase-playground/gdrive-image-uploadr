@@ -1,3 +1,5 @@
+//@flow
+
 import React from "react"
 import Gallery from "react-photo-gallery"
 import { Text } from "rebass"
@@ -5,7 +7,12 @@ import LoadingMask from "common/components/LoadingMask"
 import LoadingSpinner from "common/components/LoadingSpinner"
 import { connect } from "react-redux"
 
-const getImageObject = image => {
+type Props = {
+  images: Array<Object>,
+  loading: boolean,
+}
+
+const getImageObject = (image: Object) => {
   return {
     src: image.preview,
     width: 75,
@@ -13,7 +20,7 @@ const getImageObject = image => {
   }
 }
 
-const ImagePreview = props => {
+const ImagePreview = (props: Props) => {
   let content
   if (props.images.length > 0) {
     content = (
@@ -36,6 +43,7 @@ const ImagePreview = props => {
   return content
 }
 
+//map required data from state to props of this component
 function mapStateToProps(state) {
   return {
     images: state.images.data,
