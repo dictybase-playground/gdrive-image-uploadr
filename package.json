@@ -11,7 +11,7 @@
     "react-notification-system": "^0.2.15",
     "react-photo-gallery": "5.6.1",
     "react-redux": "^5.0.6",
-    "react-scripts": "1.0.12",
+    "react-scripts": "1.1.1",
     "rebass": "^1.0.4",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
